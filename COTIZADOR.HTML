@@ -17,7 +17,7 @@
 
   /* Contenedor del formulario centrado */
   .form-container {
-    background: rgba(255, 255, 255, 0.95); /* Blanco semi-transparente */
+    background: rgba(255, 255, 255, 0.95);
     max-width: 450px;
     margin: 60px auto;
     padding: 35px;
@@ -62,7 +62,6 @@
     background-color: #0f78d4;
   }
 
-  /* Etiquetas */
   label {
     font-weight: bold;
     color: #333;
@@ -75,13 +74,22 @@
       padding: 25px;
     }
   }
+
+  /* Mensaje de éxito */
+  #success-message {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+    margin-top: 15px;
+    display: none;
+  }
 </style>
 </head>
 
 <body>
 <div class="form-container">
   <h2>Solicitar Cotización</h2>
-  <form action="https://script.google.com/macros/s/AKfycbyr8dUeWLXBCNEOMWxvHAoVHmfM2Y5iBbu3MTkz4_ZHo04jBCTGa857YlZygZd_4m0zww/exec" method="POST">
+  <form id="cotizacionForm" action="https://script.google.com/macros/s/AKfycbyr8dUeWLXBCNEOMWxvHAoVHmfM2Y5iBbu3MTkz4_ZHo04jBCTGa857YlZygZd_4m0zww/exec" method="POST" target="_blank">
     
     <label for="cliente">Nombre del cliente</label>
     <input type="text" name="cliente" placeholder="Tu nombre" required>
@@ -91,15 +99,30 @@
 
     <label for="codigo">Selecciona un item</label>
     <select name="codigo" required>
-      <option value="1">APLICACION DE BATERIA DE RIESGO PSICOSOCIAL - $35.000</option>
-      <option value="2">ANALISIS DE PUESTO DE TRABAJO - $250.000</option>
+      <option value="1">APLICACION DE BATERIA DE RIESGO PSICOSOCIAL</option>
+      <option value="2">ANALISIS DE PUESTO DE TRABAJO</option>
     </select>
 
     <label for="cantidad">Cantidad</label>
     <input type="number" name="cantidad" placeholder="Cantidad" min="1" required>
 
     <button type="submit">Generar Cotización</button>
+    <div id="success-message">¡Tu cotización fue enviada correctamente!</div>
   </form>
 </div>
+
+<script>
+  // Mostrar mensaje de éxito después de enviar
+  const form = document.getElementById('cotizacionForm');
+  const successMessage = document.getElementById('success-message');
+
+  form.addEventListener('submit', function(e){
+    // Se abre en otra pestaña por target="_blank"
+    successMessage.style.display = 'block';
+    setTimeout(() => {
+      successMessage.style.display = 'none';
+    }, 5000); // desaparece después de 5 segundos
+  });
+</script>
 </body>
 </html>
