@@ -83,7 +83,10 @@
 <body>
 <div class="form-container">
   <h2>Solicitar Cotización</h2>
-  <form id="cotizacionForm">
+
+  <!-- Formulario normal, POST al Web App -->
+  <form action="https://script.google.com/macros/s/AKfycbyr8dUeWLXBCNEOMWxvHAoVHmfM2Y5iBbu3MTkz4_ZHo04jBCTGa857YlZygZd_4m0zww/exec" method="POST" target="_blank">
+    
     <label for="cliente">Nombre del cliente</label>
     <input type="text" name="cliente" placeholder="Tu nombre" required>
 
@@ -92,7 +95,7 @@
 
     <label for="codigo">Selecciona un item</label>
     <select name="codigo" required>
-      <option value="1">APLICACION DE BATERIA DE RIESGO PSICOSOCIAL FINAL</option>
+      <option value="1">BATERIA</option>
       <option value="2">ANALISIS DE PUESTO DE TRABAJO</option>
     </select>
 
@@ -100,36 +103,21 @@
     <input type="number" name="cantidad" placeholder="Cantidad" min="1" required>
 
     <button type="submit">Generar Cotización</button>
-    <div id="success-message">¡Tu cotización fue enviada correctamente!</div>
   </form>
+
+  <!-- Mensaje de éxito opcional -->
+  <div id="success-message">¡Tu cotización fue enviada correctamente! Revisa tu correo.</div>
 </div>
 
 <script>
-const form = document.getElementById('cotizacionForm');
-const successMessage = document.getElementById('success-message');
+  // Opcional: mostrar mensaje al enviar
+  const form = document.querySelector('form');
+  const msg = document.getElementById('success-message');
 
-// Cambia esta URL por tu Web App de Apps Script
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyr8dUeWLXBCNEOMWxvHAoVHmfM2Y5iBbu3MTkz4_ZHo04jBCTGa857YlZygZd_4m0zww/exec';
-
-form.addEventListener('submit', function(e) {
-  e.preventDefault(); // Evita abrir la URL en otra pestaña
-
-  const formData = new FormData(form);
-
-  fetch(WEB_APP_URL, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.text())
-  .then(result => {
-    successMessage.style.display = 'block';
-    form.reset(); // Limpiar formulario
-    setTimeout(() => {
-      successMessage.style.display = 'none';
-    }, 5000);
-  })
-  .catch(error => alert('Error al enviar cotización: ' + error));
-});
+  form.addEventListener('submit', () => {
+    msg.style.display = 'block';
+    setTimeout(() => { msg.style.display = 'none'; }, 5000);
+  });
 </script>
 </body>
 </html>
